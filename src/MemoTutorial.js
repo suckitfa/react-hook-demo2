@@ -3,6 +3,7 @@ import React, { useEffect,useState,useMemo } from 'react'
 export default function MemoTutorial() {
     const [data,setData] = useState(null)
     const [toggle, setToggle] = useState(true)
+
     useEffect(()=>{
         fetch('https://jsonplaceholder.typicode.com/comments')
         .then(resp=>resp.json())
@@ -26,8 +27,7 @@ export default function MemoTutorial() {
         console.log("that was computed!")
         return longestName;
     }
-    
-    const getLongestName = useMemo(() => findLongestName(data),[toggle])
+    const getLongestName = useMemo(() => findLongestName(data),[data])
   return (
       <div>
           <hr />
@@ -35,6 +35,9 @@ export default function MemoTutorial() {
           <div>{getLongestName}</div>
           <button onClick={()=>setToggle(!toggle)}>
               Toggle</button>
+            {
+                toggle && <h1>toggle</h1>
+            }
       </div>
   )
 }
